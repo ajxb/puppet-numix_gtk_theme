@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.12
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-numix_gtk_theme">numix_gtk_theme</h1>
+
+<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<ol><li>
+<p><a href="#description">Description</a></p>
+</li><li>
+<p><a href="#setup">Setup - The basics of getting started with
+numix_gtk_theme</a></p>
+<ul><li>
+<p><a href="#what-numix_gtk_theme-affects">What numix_gtk_theme affects</a></p>
+</li><li>
+<p><a href="#beginning-with-numix_gtk_theme">Beginning with
+numix_gtk_theme</a></p>
+</li></ul>
+</li><li>
+<p><a href="#usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#reference">Reference - An under-the-hood peek at what the module
+is doing and how</a></p>
+</li><li>
+<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+</li><li>
+<p><a href="#development">Development - Guide for contributing to the
+module</a></p>
+</li></ol>
+
+<h2 id="label-Description">Description</h2>
+
+<p>The numix_gtk_theme module installs the <a
+href="https://github.com/numixproject/numix-gtk-theme">Numix GTK theme</a>
+from <a href="https://launchpad.net/~numix/+archive/ubuntu/ppa">ppa</a>
+along with <a
+href="https://github.com/zagortenay333/numix-cinnamon">Numix-Cinnamon</a>
+from Git and recommended font <a
+href="https://fonts.google.com/specimen/Roboto">Roboto</a> on Linux Mint.</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-What+numix_gtk_theme+affects">What numix_gtk_theme affects</h3>
+<ul><li>
+<p>apt configuration to include the Numix ppa</p>
+</li><li>
+<p>gsettings to configure user specific use of Numix theme and Roboto fonts</p>
+</li></ul>
+
+<h3 id="label-Beginning+with+numix_gtk_theme">Beginning with numix_gtk_theme</h3>
+
+<p>To install numix-gtk-theme, numix-cinnamon and fonts-roboto:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;numix_gtk_theme&#39;:
+  group =&gt; &#39;agroup&#39;,
+  user  =&gt; &#39;auser&#39;,
+}</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>The default numix_gtk_theme class installs numix-gtk-theme, numix-cinnamon
+and fonts-roboto. To use default configuration:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;numix_gtk_theme&#39;:
+  group =&gt; &#39;agroup&#39;,
+  user  =&gt; &#39;auser&#39;,
+}</code></pre>
+
+<p>To configure the Cinnamon desktop the following fact must be defined:
+<code>yaml desktop:   type: cinnamon </code></p>
+
+<p>Note : In order for this module to work on Linux Mint the OS related facts
+need to be overridden to present the machine to Puppet as an Ubuntu 16.04
+variant. This works around poor direct support for Linux Mint in the Puppet
+universe. An example of the fact overrides that can be used to achieve this
+are as follows:</p>
+
+<pre class="code ruby"><code class="ruby">lsbdistcodename: xenial
+lsbdistdescription: Ubuntu 16.04.3 LTS
+lsbdistid: Ubuntu
+lsbdistrelease: &quot;16.04&quot;
+lsbmajdistrelease: &quot;16.04&quot;
+operatingsystem: Ubuntu
+operatingsystemmajrelease: &quot;16.04&quot;
+operatingsystemrelease: &quot;16.04&quot;
+os:
+  distro:
+    codename: xenial
+    description: Ubuntu 16.04.3 LTS
+    id: Ubuntu
+    release:
+      full: &quot;16.04&quot;
+      major: &quot;16.04&quot;
+  family: Debian
+  name: Ubuntu
+  release:
+    full: &quot;16.04&quot;
+    major: &quot;16.04&quot;
+osfamily: Debian</code></pre>
+
+<h2 id="label-Reference">Reference</h2>
+
+<h3 id="label-Classes">Classes</h3>
+
+<h4 id="label-Public+classes">Public classes</h4>
+<ul><li>
+<p><code>numix_gtk_theme</code>: Installs numix-gtk-theme, numix-cinnamon and
+fonts-roboto</p>
+</li></ul>
+
+<h4 id="label-Private+classes">Private classes</h4>
+<ul><li>
+<p><code>numix_gtk_theme::config</code>: Handles the configuration of the
+theme and fonts</p>
+</li><li>
+<p><code>numix_gtk_theme::params</code>: Handles the module default parameters</p>
+</li><li>
+<p><code>numix_gtk_theme::install</code>: Handles the ppa setup, the
+numix-gtk-theme, numix-cinnamon and fonts-roboto packages</p>
+</li></ul>
+
+<h3 id="label-Parameters">Parameters</h3>
+
+<p>The following parameters are available in the <code>numix_gtk_theme</code>
+class:</p>
+
+<h4 id="label-user"><code>user</code></h4>
+
+<p>Data type: String.</p>
+
+<p>The user to configure. Note this parameter is mandatory and should be
+passed to the class on instantiation.</p>
+
+<p>Default value: &#39;undef&#39;.</p>
+
+<h4 id="label-group"><code>group</code></h4>
+
+<p>Data type: String.</p>
+
+<p>The group associated with the user. Note this parameter is mandatory and
+should be passed to the class on instantiation.</p>
+
+<p>Default value: &#39;undef&#39;.</p>
+
+<h2 id="label-Limitations">Limitations</h2>
+
+<p>This module has only been tested against Linux Mint 18.3. This module is
+specific to Linux Mint only.</p>
+
+<p>As numix-gtk-theme is a desktop theme this module will only produce
+tangible results when used with a desktop variant of Linux Mint Cinnamon.</p>
+
+<h2 id="label-Development">Development</h2>
+
+<h3 id="label-Contributing">Contributing</h3>
+
+<p>Before starting your work on this module, you should fork the project to
+your GitHub account. This allows you to freely experiment with your
+changes. When your changes are complete, submit a pull request. All pull
+requests will be reviewed and merged if they suit some general guidelines:</p>
+<ul><li>
+<p>Changes are located in a topic branch</p>
+</li><li>
+<p>For new functionality, proper tests are written</p>
+</li><li>
+<p>Changes should not solve certain problems on special environments</p>
+</li><li>
+<p>Your change does not handle third party software for which dedicated Puppet
+modules exist</p>
+</li><li>
+<p>such as creating databases, installing webserver etc.</p>
+</li><li>
+<p>Changes follow the recommended Puppet style guidelines from the <a
+href="https://docs.puppet.com/puppet/latest/style_guide.html">Puppet
+Language Style Guide</a></p>
+</li></ul>
+
+<h3 id="label-Branches">Branches</h3>
+
+<p>Choosing a proper name for a branch helps us identify its purpose and
+possibly find an associated bug or feature. Generally a branch name should
+include a topic such as <code>bug</code> or <code>feature</code> followed
+by a description and an issue number if applicable. Branches should have
+only changes relevant to a specific issue.</p>
+
+<pre class="code ruby"><code class="ruby">git checkout -b bug/service-template-typo-1234
+git checkout -b feature/config-handling-1235</code></pre>
+
+<h3 id="label-Running+tests">Running tests</h3>
+
+<p>This project contains tests for <a
+href="http://rspec-puppet.com/">rspec-puppet</a> to verify functionality.
+For detailed information on using this tool, please see the relevant
+documentation.</p>
+
+<h4 id="label-Testing+quickstart">Testing quickstart</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_bundler'>bundler</span>
+<span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+<span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_spec'>spec</span>
+</code></pre>
+</div></div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
